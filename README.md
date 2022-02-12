@@ -18,6 +18,8 @@ Ir al archivo .env  y configurar credenciales de base de datos mysql (host, usua
 *php artisan migrate*
 
 ## Cargar data de prueba
+- Ejecutar *php artisan serve* en la raíz del proyecto
+
 - Una vez levantado el proyecto: dirigirse a la ruta: http://127.0.0.1:8000/seed en el navegador (Cargará el seed con toda la data de prueba)
 
 - http://127.0.0.1:8000/ para probar el proyecto
