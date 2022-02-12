@@ -269,7 +269,7 @@ a {
       <div class="modal-body">
         <form id="save_product_form">
             @csrf
-            <input type="hidden" name="id_product" id="id_product">
+            <input type="text" name="id_product" id="id_product" style="display: none;">
             <div class="mb-3">
                 <input type="text" name="name" id="product_name" class="form-control" placeholder="Nombre">
             </div>

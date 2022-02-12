@@ -56,48 +56,56 @@ function new_product() {
 
 }
 function save_product() {
-	let url = $('#id_product').val() ? '/products/'+$('#id_product').val() : '/products';
-	let method = $('#id_product').val() ? 'PUT' : 'POST';
-	$.ajax({
-		url: url,
-		type: method,
-		data: $('#save_product_form').serialize(),
-		success: (response) => {
-			if(response.code != 200) {
-				show_alert('error', 'Error', response.message);
-			} else {
-				let product = response.product;
-				if($('#id_product').val()) {
-					let procard = $('#prod_'+product.id);
-					procard.children().children('h5').text(product.name);
-					procard.children().children('p').text(`Precio: ${product.price} $`);
-					procard.children().children('span').text(`IVA: ${product.iva} %`);
+	if(!$('#product_name').val().trim() || !$('#product_price').val().trim() || !$('#iva').val().trim()) {
+		show_alert('error', 'Error', 'complete todos los datos');
+	} else {
+		let url = $('#id_product').val() ? '/products/'+$('#id_product').val() : '/products';
+		let method = $('#id_product').val() ? 'PUT' : 'POST';
+		$.ajax({
+			url: url,
+			type: method,
+			data: $('#save_product_form').serialize(),
+			success: (response) => {
+				if(response.code != 200) {
+					show_alert('error', 'Error', response.message);
 				} else {
-					// Creacion
-					let item = `<div class="col-md-2" id="prod_${product.id}">
-	                    <div class="card text-center mb-2 p-3">
-	                        <h5>${product.name}</h5>
-	                        <p class="mb-0">Precio: ${product.price}$</p>
-	                        <span class="mb-1" style="font-size: 11px;">IVA: ${product.iva} %</span>
-	                        <!--button class="btn btn-info">Comprar</button-->
-	                        <div class="row">
-	                            <div class="col-6">
-	                                <a href="javascript:delete_product(${product.id});"><i class="bi bi-trash" title="Borrar"></i></a>
-	                            </div>
-	                            <div class="col-6">
-	                                <a href="javascript:edit_product(${product.id});"><i class="bi bi-pencil" title="Editar"></i></a>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>`;
-                	$('#non_product').remove();
-                	$('#product_list').prepend(item);
+					let product = response.product;
+					if($('#id_product').val()) {
+						let procard = $('#prod_'+product.id);
+						procard.children().children('h5').text(product.name);
+						procard.children().children('p').text(`Precio: ${product.price} $`);
+						procard.children().children('span').text(`IVA: ${product.iva} %`);
+					} else {
+						// Creacion
+						let item = `<div class="col-md-2" id="prod_${product.id}">
+		                    <div class="card text-center mb-2 p-3">
+		                        <h5>${product.name}</h5>
+		                        <p class="mb-0">Precio: ${product.price}$</p>
+		                        <span class="mb-1" style="font-size: 11px;">IVA: ${product.iva} %</span>
+		                        <!--button class="btn btn-info">Comprar</button-->
+		                        <div class="row">
+		                            <div class="col-6">
+		                                <a href="javascript:delete_product(${product.id});"><i class="bi bi-trash" title="Borrar"></i></a>
+		                            </div>
+		                            <div class="col-6">
+		                                <a href="javascript:edit_product(${product.id});"><i class="bi bi-pencil" title="Editar"></i></a>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>`;
+	                	$('#non_product').remove();
+	                	$('#product_list').prepend(item);
+					}
+					show_alert('success', 'Exito', 'Producto Guardado');
+	               	$('#save_product_form')[0].reset();
+	                $('#product_modal').modal('hide');
 				}
-               	$('#save_product_form')[0].reset();
-                $('#product_modal').modal('hide');
-			}
-		}
-	})
+			},
+			error: () => {
+	  			Swal.fire('Error', 'Ha ocurrido un error', 'error');
+	  		}
+		})
+	}
 }
 
 function edit_product(id) {
@@ -199,7 +207,7 @@ function facturar() {
 	  				location.reload();
 	  		},
 	  		error: () => {
-	  			Swal.fire('Exito', 'Ha ocurrido un error', 'error');
+	  			Swal.fire('Error', 'Ha ocurrido un error', 'error');
 	  		}
 	  	})
 	  }
@@ -223,7 +231,7 @@ function comprar(id) {
 	  			Swal.fire('Exito', response.message, 'success');
 	  		},
 	  		error: () => {
-	  			Swal.fire('Exito', 'Ha ocurrido un error', 'error');
+	  			Swal.fire('Error', 'Ha ocurrido un error', 'error');
 	  		}
 	  	})
 	  }
