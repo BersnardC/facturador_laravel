@@ -15,10 +15,12 @@ Duplicar archivo .env.example y renombrar a .env
 Ir al archivo .env  y configurar credenciales de base de datos mysql (host, usuario, password, db, puerto)
 
 ## Correr migraciones
-php artisan migrate
+*php artisan migrate*
 
 ## Cargar data de prueba
-Una vez levantado el proyecto: dirigirse a la ruta: localhost/seed (Cargará el seed con toda la data de prueba)
+- Una vez levantado el proyecto: dirigirse a la ruta: l- Abrir http://127.0.0.1:8000/seed en el navegador seed (Cargará el seed con toda la data de prueba)
+
+- http://127.0.0.1:8000/ para probar el proyecto
 
 ## License
 
