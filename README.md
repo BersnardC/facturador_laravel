@@ -1,3 +1,5 @@
+![screenshots](https://user-images.githubusercontent.com/16180762/153694235-e86abb54-8fa1-46cc-adb2-c3492024a62c.PNG)
+
 ## Requerimientos del proyecto
  - Apache
  - Mysql
